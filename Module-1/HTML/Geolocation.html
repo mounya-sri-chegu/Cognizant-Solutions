@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Find Nearby Events</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #locationResult {
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: green;
+    }
+    #errorMsg {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📍 Locate Nearby Events</h2>
+
+  <button onclick="findNearbyEvents()">Find Nearby Events</button>
+
+  <div id="locationResult"></div>
+  <div id="errorMsg"></div>
+
+  <script>
+    function findNearbyEvents() {
+      const resultDiv = document.getElementById('locationResult');
+      const errorDiv = document.getElementById('errorMsg');
+      resultDiv.textContent = "";
+      errorDiv.textContent = "";
+
+      if (!navigator.geolocation) {
+        errorDiv.textContent = "Geolocation is not supported by your browser.";
+        return;
+      }
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          resultDiv.textContent = `✅ Your coordinates: Latitude ${lat.toFixed(5)}, Longitude ${lon.toFixed(5)}`;
+        },
+        (error) => {
+          switch (error.code) {
+            case error.PERMISSION_DENIED:
+              errorDiv.textContent = "❌ Permission denied. Please allow location access.";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorDiv.textContent = "❌ Location information is unavailable.";
+              break;
+            case error.TIMEOUT:
+              errorDiv.textContent = "⏳ Request timed out. Try again.";
+              break;
+            default:
+              errorDiv.textContent = "❌ An unknown error occurred.";
+          }
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    }
+  </script>
+
+</body>
+</html>
