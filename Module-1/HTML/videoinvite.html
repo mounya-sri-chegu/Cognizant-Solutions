@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event Promo Video</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    iframe {
+      width: 100%;
+      height: 315px;
+      border: 2px solid #444;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    #videoStatus {
+      font-weight: bold;
+      color: green;
+    }
+    form {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body onload="videoReadyMessage()">
+
+  <h2>🎥 Event Promo Video</h2>
+
+  <!-- Embedded YouTube video -->
+  <iframe 
+    src="https://www.youtube.com/embed/u_qFlTu7HTw" 
+    title="Event Promo Video"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+  <div id="videoStatus"></div>
+
+  <form id="feedbackForm">
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" placeholder="Enter your name" required />
+
+    <label for="comments">Comments:</label>
+    <textarea id="comments" rows="4" placeholder="Share your thoughts..."></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    // Show message when page loads (simulate video ready for iframe)
+    function videoReadyMessage() {
+      document.getElementById('videoStatus').textContent = "✅ Video ready to play!";
+    }
+
+    // Warn users before leaving the page if form is partially filled
+    window.onbeforeunload = function () {
+      const name = document.getElementById('name').value;
+      const comments = document.getElementById('comments').value;
+
+      if (name || comments) {
+        return "You have unsaved changes. Are you sure you want to leave?";
+      }
+    };
+  </script>
+
+</body>
+</html>

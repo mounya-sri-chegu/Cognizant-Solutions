@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Preferences</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 20px;
+    }
+    select, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 8px;
+      font-size: 1rem;
+    }
+    #status {
+      margin-top: 15px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🎯 Select Your Preferred Event Type</h2>
+
+  <label for="eventType">Choose an Event:</label>
+  <select id="eventType" onchange="savePreference()">
+    <option value="">-- Select an Event --</option>
+    <option value="Community Day">Community Day</option>
+    <option value="Children's Day">Children's Day</option>
+    <option value="Social Day">Social Day</option>
+  </select>
+
+  <button onclick="clearPreferences()">Clear Preferences</button>
+
+  <div id="status"></div>
+
+  <script>
+    // Save selected event type to localStorage
+    function savePreference() {
+      const select = document.getElementById('eventType');
+      const selectedValue = select.value;
+
+      if (selectedValue) {
+        localStorage.setItem('preferredEvent', selectedValue);
+        document.getElementById('status').textContent = `✅ Preference saved: ${selectedValue}`;
+      }
+    }
+
+    // Retrieve preference on page load
+    window.onload = function () {
+      const savedEvent = localStorage.getItem('preferredEvent');
+      if (savedEvent) {
+        const select = document.getElementById('eventType');
+        for (let i = 0; i < select.options.length; i++) {
+          if (select.options[i].value === savedEvent) {
+            select.selectedIndex = i;
+            document.getElementById('status').textContent = `✔️ Restored preference: ${savedEvent}`;
+            break;
+          }
+        }
+      }
+    };
+
+    // Clear both localStorage and sessionStorage
+    function clearPreferences() {
+      localStorage.removeItem('preferredEvent');
+      sessionStorage.clear();
+      document.getElementById('eventType').selectedIndex = 0;
+      document.getElementById('status').textContent = '❌ Preferences cleared.';
+    }
+  </script>
+
+</body>
+</html>
