@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Display Utilities</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container mt-5">
+    <h2>Responsive Visibility Demo</h2>
+
+    <!-- Hidden on all sizes, visible on md and up -->
+    <div class="d-none d-md-block p-3 bg-success text-white mt-3">
+      <p>This box is <strong>hidden on small screens</strong> but <strong>visible on medium (md) and larger</strong>.</p>
+    </div>
+
+    <!-- Hidden below lg, visible as flex on lg and up -->
+    <div class="d-none d-lg-flex p-3 bg-primary text-white mt-3 justify-content-between">
+      <p>This section uses <code>d-lg-flex</code> and is only visible on large screens (≥992px).</p>
+      <p>It’s a flexbox row!</p>
+    </div>
+  </div>
+
+</body>
+</html>
