@@ -1,0 +1,11 @@
+#mainHeader {
+  color: #333;
+  text-align: center;
+}
+
+.eventCard {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 20px;
+  background-color: #fff;
+}
